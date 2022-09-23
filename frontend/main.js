@@ -27,7 +27,7 @@ function autosave() {
   }
   saveTimeout = setTimeout(async () => {
     const data = canv.toDataURL();
-    await save(data);
+    await saveRecent(data);
   }, 1000);
 }
 
