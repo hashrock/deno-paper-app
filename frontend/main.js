@@ -6,12 +6,15 @@ ctx.strokeWidth = 5
 let drag = null
 
 canv.addEventListener('pointerdown', (e) => {
+  canv.setPointerCapture(e.pointerId)
+
   const x = e.offsetX
   const y = e.offsetY
   drag = { x, y }
 })
 
 canv.addEventListener('pointermove', (e) => {
+  e.preventDefault()
   if (drag) {
     const x = e.offsetX
     const y = e.offsetY
@@ -26,13 +29,8 @@ canv.addEventListener('pointermove', (e) => {
 canv.addEventListener('pointerup', (e) => {
   drag = null
 })
-
-canv.addEventListener('pointerleave', (e) => {
-  drag = null
-})
-
-canv.addEventListener('pointerout', (e) => {
-  drag = null
+canv.addEventListener('touchmove', (e) => {
+  e.preventDefault()
 })
 
 canv.addEventListener('pointercancel', (e) => {
