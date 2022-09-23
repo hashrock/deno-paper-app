@@ -49,6 +49,28 @@ const webview = new Webview(true, {
   height: 600,
   hint: SizeHint.FIXED,
 });
+
+// webview.run has taken ahold of it only allowing sync callbacks 
+// https://github.com/webview/webview_deno/issues/131
+webview.bind("save", (data: string) => {
+  const base64 = data.split(",")[1];
+  const bytes = atob(base64);
+  const buffer = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) {
+    buffer[i] = bytes.charCodeAt(i);
+  }
+  Deno.writeFileSync("output.png", buffer);
+  console.log("saved")
+  return { ok: true };
+});
+
+webview.bind("loadRecent",  () => {
+  console.log("loadRecent")
+  const data = Deno.readFileSync("output.png");
+  const base64 = btoa(String.fromCharCode(...data));
+  return {data: `data:image/png;base64,${base64}`};
+});
+
 webview.title = "Paper";
 webview.navigate(`data:text/html,${encodeURIComponent(html)}`);
 webview.run();

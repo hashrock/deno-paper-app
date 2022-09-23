@@ -7,8 +7,36 @@ ctx.lineWidth = 3;
 
 let drag = null;
 
-document.addEventListener("keydown", (e) => {
+async function main() {
+  const res = await loadRecent()
+  if (res.data) {
+    // read dataurl into canvas
+    const img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+    }
+    img.src = res.data;
+  }
+}
+
+//debounce save
+let saveTimeout = null;
+function autosave() {
+  if (saveTimeout) {
+    clearTimeout(saveTimeout);
+  }
+  saveTimeout = setTimeout(async () => {
+    const data = canv.toDataURL();
+    await save(data);
+  }, 1000);
+}
+
+main()
+
+document.addEventListener("keydown", async (e) => {
   if (e.key == "Enter") {
+    const data = canv.toDataURL();
+    await save(data)
     ctx.clearRect(0, 0, canv.width, canv.height);
   }
 });
@@ -35,6 +63,8 @@ canv.addEventListener("pointermove", (e) => {
 });
 
 canv.addEventListener("pointerup", (e) => {
+  canv.releasePointerCapture(e.pointerId);
+  autosave()
   drag = null;
 });
 canv.addEventListener("touchmove", (e) => {
