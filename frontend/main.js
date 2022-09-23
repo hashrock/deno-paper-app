@@ -1,9 +1,17 @@
 const canv = document.querySelector('#canv')
-const ctx = canv.getContext('2d')
-ctx.strokeStyle = 'red'
-ctx.strokeWidth = 5
+const ctx = canv.getContext('2d', {
+  desynchronized: true,
+})
+ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)'
+ctx.lineWidth = 3
 
 let drag = null
+
+document.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    ctx.clearRect(0, 0, canv.width, canv.height)
+  }
+})
 
 canv.addEventListener('pointerdown', (e) => {
   canv.setPointerCapture(e.pointerId)
