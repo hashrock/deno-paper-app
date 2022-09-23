@@ -57,14 +57,15 @@ function url2buf(url: string) {
   for (let i = 0; i < bytes.length; i++) {
     buffer[i] = bytes.charCodeAt(i);
   }
-  return buffer
+  return buffer;
 }
 
-// webview.run has taken ahold of it only allowing sync callbacks 
+// webview.run has taken ahold of it only allowing sync callbacks
 // https://github.com/webview/webview_deno/issues/131
 webview.bind("save", (data: string) => {
   // pic_yyyy-mm-dd-hh-mm-ss.png
-  const filename = "pic_"+ new Date().toISOString().replace(/:/g, "-") + ".png";
+  const filename = "pic_" + new Date().toISOString().replace(/:/g, "-") +
+    ".png";
   Deno.writeFileSync(filename, url2buf(data));
   return { ok: true, filename };
 });
@@ -74,10 +75,10 @@ webview.bind("saveRecent", (data: string) => {
   return { ok: true, filename: "output.png" };
 });
 
-webview.bind("loadRecent",  () => {
+webview.bind("loadRecent", () => {
   const data = Deno.readFileSync("output.png");
   const base64 = btoa(String.fromCharCode(...data));
-  return {data: `data:image/png;base64,${base64}`};
+  return { data: `data:image/png;base64,${base64}` };
 });
 
 webview.title = "Paper | [Enter] clear & save";

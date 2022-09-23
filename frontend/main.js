@@ -8,13 +8,13 @@ ctx.lineWidth = 3;
 let drag = null;
 
 async function main() {
-  const res = await loadRecent()
+  const res = await loadRecent();
   if (res.data) {
     // read dataurl into canvas
     const img = new Image();
     img.onload = () => {
       ctx.drawImage(img, 0, 0);
-    }
+    };
     img.src = res.data;
   }
 }
@@ -31,12 +31,12 @@ function autosave() {
   }, 1000);
 }
 
-main()
+main();
 
 document.addEventListener("keydown", async (e) => {
   if (e.key == "Enter") {
     const data = canv.toDataURL();
-    await save(data)
+    await save(data);
     ctx.clearRect(0, 0, canv.width, canv.height);
   }
 });
@@ -64,7 +64,7 @@ canv.addEventListener("pointermove", (e) => {
 
 canv.addEventListener("pointerup", (e) => {
   canv.releasePointerCapture(e.pointerId);
-  autosave()
+  autosave();
   drag = null;
 });
 canv.addEventListener("touchmove", (e) => {
