@@ -1,4 +1,4 @@
-import { Webview, SizeHint } from "https://deno.land/x/webview/mod.ts";
+import { SizeHint, Webview } from "https://deno.land/x/webview/mod.ts";
 import {
   DOMParser,
   Element,
@@ -8,8 +8,8 @@ function bundle() {
   const htmlFile = Deno.readTextFileSync("./frontend/index.html");
 
   const doc = new DOMParser().parseFromString(htmlFile, "text/html")!;
-  const scripts = doc.querySelectorAll("script")
-  
+  const scripts = doc.querySelectorAll("script");
+
   for (const script of scripts) {
     if (script instanceof Element) {
       const el = script as Element;
@@ -22,7 +22,7 @@ function bundle() {
       }
     }
   }
-  
+
   const styles = doc.querySelectorAll("link[rel=stylesheet]");
   for (const style of styles) {
     if (style instanceof Element) {
@@ -37,13 +37,15 @@ function bundle() {
     }
   }
 
-  return doc.querySelector("html")?.outerHTML!
+  return doc.querySelector("html")?.outerHTML!;
 }
 
-
-
 const html = bundle();
-const webview = new Webview(true, {width: 600, height: 600, hint: SizeHint.FIXED});
-webview.title = "Paper"
+const webview = new Webview(true, {
+  width: 600,
+  height: 600,
+  hint: SizeHint.FIXED,
+});
+webview.title = "Paper";
 webview.navigate(`data:text/html,${encodeURIComponent(html)}`);
 webview.run();
