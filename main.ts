@@ -3,9 +3,12 @@ import {
   DOMParser,
   Element,
 } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
+import { dirname, join } from "https://deno.land/std/path/mod.ts";
 
-function bundle() {
-  const htmlFile = Deno.readTextFileSync("./frontend/index.html");
+function bundle(indexPath: string) {
+  const base = dirname(indexPath);
+
+  const htmlFile = Deno.readTextFileSync(indexPath);
 
   const doc = new DOMParser().parseFromString(htmlFile, "text/html")!;
   const scripts = doc.querySelectorAll("script");
@@ -15,7 +18,7 @@ function bundle() {
       const el = script as Element;
       const src = el.getAttribute("src");
       if (src) {
-        const js = Deno.readTextFileSync(`./frontend/${src}`);
+        const js = Deno.readTextFileSync(join(base, src));
         const newScript = doc.createElement("script");
         newScript.innerHTML = js;
         el.replaceWith(newScript);
@@ -29,7 +32,7 @@ function bundle() {
       const el = style as Element;
       const href = el.getAttribute("href");
       if (href) {
-        const css = Deno.readTextFileSync(`./frontend/${href}`);
+        const css = Deno.readTextFileSync(join(base, href));
         const newStyle = doc.createElement("style");
         newStyle.innerHTML = css;
         el.replaceWith(newStyle);
@@ -40,7 +43,7 @@ function bundle() {
   return doc.querySelector("html")?.outerHTML!;
 }
 
-const html = bundle();
+const html = bundle("frontend/index.html");
 const webview = new Webview(true, {
   width: 600,
   height: 600,
