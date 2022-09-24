@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "start": "deno run --unstable --allow-env --allow-read --allow-write --allow-ffi main.ts"
+  }
+}
