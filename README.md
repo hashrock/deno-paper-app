@@ -7,9 +7,7 @@ Super simple drawing app made with [webview_deno](https://github.com/webview/web
 
 # Usage
 
-> deno run -A --unstable https://raw.githubusercontent.com/hashrock/deno-paper-app/main/main.ts
-
-or
+Clone this repo and run: 
 
 > deno task start
 
