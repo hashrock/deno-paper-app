@@ -1,2 +1,5 @@
 *.dll
 *.png
+node_modules/
+.vite/
+dist/

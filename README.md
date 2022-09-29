@@ -2,12 +2,12 @@
 
 ![image](https://user-images.githubusercontent.com/3132889/192071287-47dc0993-2fad-4a4d-ae45-6f3ad66f7e5a.png)
 
-
-Super simple drawing app made with [webview_deno](https://github.com/webview/webview_deno).
+Super simple drawing app made with
+[webview_deno](https://github.com/webview/webview_deno).
 
 # Usage
 
-Clone this repo and run: 
+Clone this repo and run:
 
 > deno task start
 
