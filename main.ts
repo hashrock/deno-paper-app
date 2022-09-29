@@ -1,9 +1,4 @@
 import { SizeHint, Webview } from "https://deno.land/x/webview/mod.ts";
-import {
-  DOMParser,
-  Element,
-} from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
-import { dirname, join } from "https://deno.land/std/path/mod.ts";
 
 const html = Deno.readTextFileSync("dist/index.html");
 const webview = new Webview(true, {
