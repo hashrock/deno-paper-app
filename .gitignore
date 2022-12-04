@@ -3,3 +3,4 @@
 node_modules/
 .vite/
 dist/
+deno.lock
