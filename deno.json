@@ -2,6 +2,7 @@
   "tasks": {
     "start": "deno task build && deno run --unstable --allow-env --allow-read --allow-write --allow-ffi main.ts",
     "dev": "deno run -A --unstable --node-modules-dir npm:vite",
-    "build": "deno run -A --unstable --node-modules-dir npm:vite build"
+    "build": "deno run -A --unstable --node-modules-dir npm:vite build",
+    "compile": "deno compile --unstable --allow-env --allow-read --allow-write --allow-ffi --output paper main.ts"
   }
 }
