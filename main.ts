@@ -1,9 +1,15 @@
-import { SizeHint, Webview } from "https://deno.land/x/webview/mod.ts";
+import { SizeHint, Webview } from "https://deno.land/x/webview@0.7.6/mod.ts";
 
-const html = Deno.readTextFileSync("dist/index.html");
+const os = Deno.build.os;
+let height = 600;
+if (os === "darwin") {
+  // osx seems to have a 28px title bar
+  height = 628;
+}
+
 const webview = new Webview(true, {
   width: 600,
-  height: 600,
+  height,
   hint: SizeHint.FIXED,
 });
 
@@ -39,5 +45,5 @@ webview.bind("loadRecent", () => {
 });
 
 webview.title = "Paper | [Enter] clear & save";
-webview.navigate(`data:text/html,${encodeURIComponent(html)}`);
+webview.navigate("https://hashrock.github.io/deno-paper-app/");
 webview.run();

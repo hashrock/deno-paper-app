@@ -11,6 +11,16 @@ Clone this repo and run:
 
 > deno task start
 
+# Create single executable
+
+> deno compile -A --unstable main.ts
+
+# Misc
+
+This program requires network access for https://hashrock.github.io/deno-paper-app/
+
+If you need a completely offline drawing app, use older version.
+
 # Features
 
 - [x] Draw with mouse and pen tablet
