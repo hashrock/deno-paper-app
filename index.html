@@ -1,0 +1,16 @@
+<html>
+  <script type="module" crossorigin>
+(function(){const n=document.createElement("link").relList;if(n&&n.supports&&n.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))l(t);new MutationObserver(t=>{for(const r of t)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&l(c)}).observe(document,{childList:!0,subtree:!0});function a(t){const r={};return t.integrity&&(r.integrity=t.integrity),t.referrerPolicy&&(r.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?r.credentials="include":t.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function l(t){if(t.ep)return;t.ep=!0;const r=a(t);fetch(t.href,r)}})();const o=document.querySelector("#canv"),i=o.getContext("2d",{desynchronized:!0});i.strokeStyle="rgba(0, 0, 0, 0.5)";i.lineWidth=3;let s=null;async function u(){const e=await loadRecent();if(e.data){const n=new Image;n.onload=()=>{i.drawImage(n,0,0)},n.src=e.data}}let d=null;function f(){d&&clearTimeout(d),d=setTimeout(async()=>{const e=o.toDataURL();await saveRecent(e)},1e3)}u();document.addEventListener("keydown",async e=>{if(e.key=="Enter"){const n=o.toDataURL();await save(n),i.clearRect(0,0,o.width,o.height)}});o.addEventListener("pointerdown",e=>{o.setPointerCapture(e.pointerId);const n=e.offsetX,a=e.offsetY;s={x:n,y:a}});o.addEventListener("pointermove",e=>{if(e.preventDefault(),s){const n=e.offsetX,a=e.offsetY;i.beginPath(),i.moveTo(s.x,s.y),i.lineTo(n,a),i.stroke(),s={x:n,y:a}}});o.addEventListener("pointerup",e=>{o.releasePointerCapture(e.pointerId),f(),s=null});o.addEventListener("touchmove",e=>{e.preventDefault()});o.addEventListener("pointercancel",e=>{s=null});
+
+</script>
+
+  <style>
+body{background-color:#333;margin:0}canvas{background:white;touch-action:manipulation}
+
+</style>
+
+  <body>
+    <canvas id="canv" width="600" height="600"></canvas>
+    
+  </body>
+</html>
