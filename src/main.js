@@ -73,6 +73,6 @@ canv.addEventListener("touchmove", (e) => {
   e.preventDefault();
 });
 
-canv.addEventListener("pointercancel", (e) => {
+canv.addEventListener("pointercancel", (_) => {
   drag = null;
 });
